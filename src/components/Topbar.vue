@@ -1,48 +1,31 @@
 <template>
-  <nav class="navbar navbar-light">
-    <div class="container">
-      <router-link class="navbar-brand" :to="{name: 'home'}">
-        MediumClone
+  <nav class='navbar navbar-light topbar-nav'>
+    <div class='container'>
+      <router-link class='navbar-brand' :to="{name: 'home'}">
+        <img class='topbar-image' src="../img/Boba.jpg"/>
       </router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <router-link class="nav-link" :to="{name: 'home'}">Home</router-link>
+          <router-link class="nav-link" :to="{name: 'home'}">
+            Home
+          </router-link>
         </li>
         <template v-if="isLoggedIn">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'createArticle'}">
-              <i class="ion-compose" />
-              &nbsp; New Article
-            </router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'settings'}">
-              <i class="ion-gear-a" />
-              &nbsp; Settings
-            </router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              :to="{name: 'userProfile', params: {slug: currentUser.username}}"
-            >
-              <img class="user-pic" :src="currentUser.image" />
-              &nbsp;
-              {{ currentUser.username }}
+            <router-link class="nav-link" :to="{name: 'budget'}">
+              Budget
             </router-link>
           </li>
         </template>
         <template v-if="!isLoggedIn">
           <li class="nav-item">
             <router-link class="nav-link" :to="{name: 'login'}">
-              Sign in
+              Sign In
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" :to="{name: 'register'}">
-              Sign up
+            <router-link class="text nav-link" :to="{name: 'register'}">
+              Sign Up
             </router-link>
           </li>
         </template>
@@ -52,10 +35,25 @@
 </template>
 
 <script>
-// import {mapState} from 'vuex'
-
+import {mapState} from 'vuex'
 export default {
-  name: 'McvTopbar',
-
+  name: 'Topbar',
+  computed: {
+    ...mapState({
+      currentUser: state => state.auth.currentUser,
+      isLoggedIn: state => state.auth.isLoggedIn
+    })
+  }
 }
 </script>
+
+<style scoped>
+  .topbar-nav {
+    background-color: #5cb85c;
+  }
+  .topbar-image {
+    height: 100%;
+    width: 40px;
+    border-radius: 50%;
+  }
+</style>
